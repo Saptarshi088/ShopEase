@@ -19,7 +19,6 @@ public class Order {
     private LocalDateTime orderDate;
     private String status;
 
-    // This links to the "Sales Slips"
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
 }
