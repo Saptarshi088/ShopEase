@@ -4,6 +4,7 @@ import com.saptarshi.ShopEase.dtos.ProductDto;
 import com.saptarshi.ShopEase.mapper.ProductMapper;
 import com.saptarshi.ShopEase.models.Product;
 import com.saptarshi.ShopEase.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<ProductDto> addProduct(@RequestBody Product product, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ProductDto> addProduct(@RequestBody @Valid Product product, UriComponentsBuilder uriBuilder){
         productService.save(product);
 //        System.out.println(product);
         var uri = uriBuilder.path("/products/{id}").buildAndExpand(product.getId()).toUri();

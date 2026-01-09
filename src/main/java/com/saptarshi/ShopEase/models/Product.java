@@ -1,6 +1,9 @@
 package com.saptarshi.ShopEase.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -18,8 +21,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name can not be blank")
+    @Size(min = 3,max = 100,message = "Name must be between 3 and 100 letters long")
     private String name;
+    @PositiveOrZero(message = "price must be positive or zero")
     private Double price;
+    @PositiveOrZero(message = "Stock quantity must be positive or zero")
     private Integer stockQuantity;
 
     @Override
