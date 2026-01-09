@@ -35,4 +35,20 @@ public class ProductController {
         var uri = uriBuilder.path("/products/{id}").buildAndExpand(product.getId()).toUri();
         return ResponseEntity.created(uri).body(productMapper.toDto(product));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable Long id){
+        var product = productService.getById(id);
+        if(product==null)
+            return ResponseEntity.badRequest().body("Product Not Found");
+        return ResponseEntity.ok(productMapper.toDto(product));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String>updateStock(@PathVariable Long id, @RequestParam int stock){
+        Product product = productService.updateStock(id, stock);
+        if(product==null)
+            return ResponseEntity.badRequest().body("Product Not Found");
+        return ResponseEntity.ok("Stock Quantity updated successfully");
+    }
 }

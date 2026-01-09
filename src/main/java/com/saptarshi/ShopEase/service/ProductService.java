@@ -20,4 +20,18 @@ public class ProductService {
     public void save(Product product) {
         productRepository.save(product);
     }
+
+    public Product getById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
+
+
+    public Product updateStock(Long id, int stock) {
+        var product = productRepository.findById(id).orElse(null);
+        if(product==null) return null;
+        product.setStockQuantity(stock);
+
+        return product;
+    }
 }
